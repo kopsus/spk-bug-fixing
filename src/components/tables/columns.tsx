@@ -11,7 +11,10 @@ export const Columns = ({
 } = {}): ColumnDef<TypeBug>[] => [
   {
     accessorKey: "id",
-    header: "BUG ID",
+    header: () => <p className="text-nowrap">BUG ID</p>,
+    cell: ({ row }) => {
+      return <p className="text-nowrap">{row.getValue("id")}</p>;
+    },
   },
   {
     accessorKey: "title",

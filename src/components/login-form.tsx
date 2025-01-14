@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
+  const router = useRouter();
+
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -45,7 +48,11 @@ export function LoginForm() {
             />
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button
+            onClick={() => router.push("/dashboard")}
+            type="submit"
+            className="w-full"
+          >
             Login
           </Button>
         </form>
