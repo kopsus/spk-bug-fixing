@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  fullName    String
+  password    String
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+
+  // Relasi ke Bug
+  bugs        Bug[]
+}
+
+enum EnumStatus {
+  Process
+  Fixed
+}
+
+model Bug {
+  id                    Int      @id @default(autoincrement())
+  title                 String
+  severity              String
+  waktu_perbaikan       String
+  risiko_perbaikan      String
+  prioritas_stakeholder String
+  usia_bug              String
+  ketersediaan_sdm      String
+  skor                  String
+  status                EnumStatus
+  cretedAt              DateTime  @default(now())
+  updatedAt             DateTime  @default(now())
+
+  // Foreign key ke Project
+  projectId             Int
+  project               Project  @relation(fields: [projectId], references: [id])
+}
