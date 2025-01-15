@@ -1,5 +1,6 @@
 "use client";
 
+import { useMutationBug } from "@/api/bug/mutation";
 import DialogLayout from "./dialog-layout";
 import { Button } from "@/components/ui/button";
 import { storeDialog } from "@/store/dialog";
@@ -8,12 +9,21 @@ import React from "react";
 
 export const DialogDelete = () => {
   const [dialog, setDialog] = useAtom(storeDialog);
+  const { serviceBug } = useMutationBug();
 
   const closeDialog = () => {
     setDialog((prev) => ({
       ...prev,
       show: false,
     }));
+  };
+
+  const handleDelete = async () => {
+    await serviceBug({
+      type: "delete",
+      id: dialog.data as string,
+    });
+    closeDialog();
   };
 
   return (
@@ -26,7 +36,7 @@ export const DialogDelete = () => {
         <Button variant={"outline"} onClick={closeDialog}>
           Cancel
         </Button>
-        <Button variant={"destructive"} onClick={closeDialog}>
+        <Button variant={"destructive"} onClick={handleDelete}>
           Delete
         </Button>
       </div>
