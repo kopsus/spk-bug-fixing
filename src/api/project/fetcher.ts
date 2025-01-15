@@ -8,7 +8,7 @@ const fetchProjects = async () => {
 
 const fetchProjectsById = async (id: string) => {
   const res = await axios.get(`${baseURLAPI}/project/${id}`);
-  return res.data.data;
+  return res.data;
 };
 
 export { fetchProjects, fetchProjectsById };

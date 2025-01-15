@@ -1,3 +1,5 @@
+import { TypeProject } from "../project/types";
+
 export type TypeBug = {
   id: string;
   title: string;
@@ -10,6 +12,7 @@ export type TypeBug = {
   skor: number;
   status: "Process" | "Fixed";
   projectId: string;
-  cretedAt?: string;
+  createdAt?: string;
   updatedAt?: string;
+  project?: TypeProject;
 };

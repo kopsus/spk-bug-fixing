@@ -4,5 +4,5 @@ export type TypeProject = {
   id: string;
   name: string;
   description: string;
-  bugs: TypeBug[];
+  bugs?: TypeBug[];
 };

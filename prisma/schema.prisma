@@ -42,7 +42,7 @@ model Bug {
   ketersediaan_sdm      Int
   skor                  Int
   status                EnumStatus
-  cretedAt              DateTime  @default(now())
+  createdAt             DateTime  @default(now())
   updatedAt             DateTime  @default(now())
 
   // Foreign key ke Project
