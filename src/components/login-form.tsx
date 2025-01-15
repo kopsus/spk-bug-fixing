@@ -1,5 +1,7 @@
 "use client";
 
+import { useMutationAuth } from "@/api/auth/mutation";
+import { TypeLogin } from "@/api/auth/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,10 +12,42 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 export function LoginForm() {
   const router = useRouter();
+  const [payload, setPayload] = React.useState<TypeLogin>({
+    email: "",
+    password: "",
+  });
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    setPayload((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const { serviceAuth, isPending } = useMutationAuth();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await serviceAuth({
+        type: "login",
+        body: payload,
+      });
+      router.push("/dashboard");
+    } catch (err) {
+      // Error sudah ditangani di hook
+    }
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -24,15 +58,16 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="grid gap-4">
+        <form onSubmit={handleLogin} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               name="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="example@example.com"
               required
+              onChange={onInputChange}
             />
           </div>
           <div className="grid gap-2">
@@ -45,6 +80,7 @@ export function LoginForm() {
               type="password"
               required
               placeholder="******"
+              onChange={onInputChange}
             />
           </div>
 
@@ -52,8 +88,9 @@ export function LoginForm() {
             onClick={() => router.push("/dashboard")}
             type="submit"
             className="w-full"
+            disabled={isPending}
           >
-            Login
+            {isPending ? <LoaderCircle /> : "Login"}
           </Button>
         </form>
       </CardContent>

@@ -2,4 +2,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export { prisma };
+const baseURLAPI = process.env.NEXT_PUBLIC_API_URL;
+
+export { prisma, baseURLAPI };

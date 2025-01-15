@@ -13,9 +13,10 @@ export async function POST(req: Request) {
         email,
       },
     });
-    if (!user) return ResponseHandler.InvalidData("email Tidak Ditemukan!");
+    if (!user) return ResponseHandler.InvalidData("Email Tidak Ditemukan!");
 
     const passwordValidate = await bcrypt.compare(password, user.password);
+
     if (!passwordValidate)
       return ResponseHandler.InvalidData("Kata Sandi yang anda masukan salah!");
 
