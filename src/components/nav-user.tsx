@@ -16,9 +16,23 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useMutationAuth } from "@/api/auth/mutation";
+import { useRouter } from "next/navigation";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
+  const router = useRouter();
+
+  const { serviceAuth } = useMutationAuth();
+
+  const handleLogout = async () => {
+    await serviceAuth({
+      type: "logout",
+      body: "",
+    });
+
+    router.push("/");
+  };
 
   return (
     <SidebarMenu>
@@ -52,7 +66,7 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

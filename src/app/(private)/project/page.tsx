@@ -1,10 +1,13 @@
+import { fetchProjects } from "@/api/project/fetcher";
+import { TypeProject } from "@/api/project/types";
 import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/lib/data-projects";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const projects: TypeProject[] = await fetchProjects();
+
   return (
     <>
       <PageHeader title="Project" />
@@ -18,7 +21,9 @@ const page = () => {
             <h3 className="font-bold text-2xl">{project.name}</h3>
             <p className="text-neutral-400">{project.description}</p>
 
-            <p className="text-xl text-red-400">{project.bugs} bugs</p>
+            <p className="text-xl text-red-400">
+              {project.bugs?.length === 0 ? 0 : project.bugs?.length} bugs
+            </p>
 
             <Button variant="outline" className="self-end mt-4">
               Visit project

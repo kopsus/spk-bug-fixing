@@ -5,7 +5,7 @@ const privateRoute = ["/bug", "/dashboard", "/project"];
 const publicRoute = ["/", "/login"];
 
 export async function middleware(req: NextRequest) {
-  const cookie = cookies().get("accessToken"); // Ambil token dari cookies
+  const cookie = (await cookies()).get("accessToken"); // Ambil token dari cookies
   const token = cookie ? cookie.value : null;
 
   const { pathname } = req.nextUrl; // Ambil path dari URL

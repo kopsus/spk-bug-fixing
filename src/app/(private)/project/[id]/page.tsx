@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryProjectDetail } from "@/api/project/queries";
 import BugInputForm from "@/components/bug-input-form";
 import PageHeader from "@/components/page-header";
 import { Columns } from "@/components/tables/columns";
@@ -7,8 +8,12 @@ import { DataTable } from "@/components/tables/data-table";
 import { bugs } from "@/lib/data-bugs";
 import React from "react";
 
-const page = () => {
+const DetailProject = () => {
+  const { detailProject } = useQueryProjectDetail();
+  console.log("detail project", detailProject);
+
   const sortedBugs = bugs.sort((a, b) => b.skor - a.skor);
+
   return (
     <>
       <PageHeader title="Detail Project" />
@@ -26,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DetailProject;
