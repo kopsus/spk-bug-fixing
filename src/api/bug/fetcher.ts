@@ -8,7 +8,7 @@ const fetchBug = async () => {
 };
 
 const createBug = async (body: TypeBug) => {
-  const res = await axios.post(`${baseURLAPI}/bug/`, body);
+  const res = await axios.post(`${baseURLAPI}/bug`, body);
   return res.data;
 };
 

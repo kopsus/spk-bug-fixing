@@ -31,10 +31,11 @@ export function TableAction({ itemId, item }: ITableRowActions) {
   };
 
   const handleEdit = () => {
+    const { project, ...restData } = item;
     setDialog({
-      type: "DELETE",
+      type: "UPDATE",
       show: true,
-      data: item,
+      data: restData,
     });
   };
 

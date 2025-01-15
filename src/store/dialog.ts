@@ -7,7 +7,7 @@ type IDialog<T> = {
   data: T | null;
 };
 
-const storeDialog = atom<IDialog<TypeBug | string>>({
+const storeDialog = atom<IDialog<any>>({
   show: false,
   type: "CREATE",
   data: null,

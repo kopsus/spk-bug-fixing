@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchProjects = async () => {
   const res = await axios.get(`${baseURLAPI}/project`);
-  return res.data.data;
+  return res.data;
 };
 
 const fetchProjectsById = async (id: string) => {

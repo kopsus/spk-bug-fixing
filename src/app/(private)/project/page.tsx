@@ -1,3 +1,4 @@
+import { ApiResponse } from "@/api/_global/ApiResponse";
 import { fetchProjects } from "@/api/project/fetcher";
 import { TypeProject } from "@/api/project/types";
 import PageHeader from "@/components/page-header";
@@ -6,13 +7,13 @@ import Link from "next/link";
 import React from "react";
 
 const page = async () => {
-  const projects: TypeProject[] = await fetchProjects();
+  const projects: ApiResponse<TypeProject[]> = await fetchProjects();
 
   return (
     <>
       <PageHeader title="Project" />
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 p-4 pt-0">
-        {projects.map((project) => (
+        {projects?.data?.map((project) => (
           <Link
             key={project.id}
             href={`/project/${project.id}`}

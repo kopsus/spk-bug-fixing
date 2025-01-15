@@ -5,7 +5,11 @@ export async function GET() {
   try {
     const projects = await prisma.project.findMany({
       include: {
-        bugs: true,
+        bugs: {
+          orderBy: {
+            skor: "desc",
+          },
+        },
       },
     });
     return ResponseHandler.get(projects);

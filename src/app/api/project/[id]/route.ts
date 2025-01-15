@@ -9,7 +9,13 @@ export async function GET(
     const id = (await params).id;
     const service = await prisma.project.findFirstOrThrow({
       where: { id },
-      include: { bugs: true },
+      include: {
+        bugs: {
+          orderBy: {
+            skor: "desc",
+          },
+        },
+      },
     });
     return ResponseHandler.get(service);
   } catch (error) {

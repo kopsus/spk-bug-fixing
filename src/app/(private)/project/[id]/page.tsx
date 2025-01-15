@@ -9,6 +9,7 @@ import React from "react";
 
 const DetailProject = () => {
   const { detailProject } = useQueryProjectDetail();
+
   return (
     <>
       <PageHeader title={`Detail ${detailProject?.name}`} />

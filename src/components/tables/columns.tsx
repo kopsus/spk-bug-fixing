@@ -40,7 +40,7 @@ export const Columns = ({
         <span className="inline-block bg-amber-200 dark:text-black px-2 py-1 rounded">
           Medium
         </span>
-      ) : priority >= 60 && priority < 90 ? (
+      ) : priority >= 60 && priority < 80 ? (
         <span className="inline-block bg-orange-400 text-white px-2 py-1 rounded">
           High
         </span>
