@@ -1,19 +1,19 @@
-import { ApiResponse } from "@/api/_global/ApiResponse";
-import { fetchProjects } from "@/api/project/fetcher";
-import { TypeProject } from "@/api/project/types";
+"use client";
+
+import { useQueryProject } from "@/api/project/queries";
 import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
-const page = async () => {
-  const projects: ApiResponse<TypeProject[]> = await fetchProjects();
+const ProjectPage = () => {
+  const { dataProjects } = useQueryProject();
 
   return (
     <>
       <PageHeader title="Project" />
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 p-4 pt-0">
-        {projects?.data?.map((project) => (
+        {dataProjects?.map((project) => (
           <Link
             key={project.id}
             href={`/project/${project.id}`}
@@ -36,4 +36,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default ProjectPage;

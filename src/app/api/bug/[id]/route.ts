@@ -1,6 +1,6 @@
 import { ResponseHandler } from "@/lib/responseHandler";
-import { calculateScore } from "../route";
 import { prisma } from "@/constants/variables";
+import { calculateScore } from "@/lib/calculate-score";
 
 export async function GET(
   req: Request,

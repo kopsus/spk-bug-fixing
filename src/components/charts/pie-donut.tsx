@@ -15,20 +15,22 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { bugs } from "@/lib/data-bugs";
+import { useQuerBugs } from "@/api/bug/queries";
 
 export function PieChartDonut() {
+  const { dataBugs } = useQuerBugs();
+
   const totalBugs = React.useMemo(() => {
-    return bugs.length;
-  }, []);
+    return dataBugs?.length;
+  }, [dataBugs?.length]);
 
   const fixedBugs = React.useMemo(() => {
-    return bugs.filter((bug) => bug.status === "Fixed").length;
-  }, []);
+    return dataBugs?.filter((bug) => bug.status === "Fixed").length;
+  }, [dataBugs]);
 
   const notFixedBugs = React.useMemo(() => {
-    return bugs.filter((bug) => bug.status === "Process").length;
-  }, []);
+    return dataBugs?.filter((bug) => bug.status === "Process").length;
+  }, [dataBugs]);
 
   const chartData = [
     { status: "fixed", amount: fixedBugs, fill: "#99C281" },
@@ -83,7 +85,7 @@ export function PieChartDonut() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {fixedBugs}/{totalBugs.toLocaleString()}
+                          {fixedBugs}/{totalBugs?.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
