@@ -30,7 +30,7 @@ import { Loader } from "lucide-react";
 export default function BugInputForm() {
   const [dialog, setDialog] = useAtom(storeDialog);
   const { dataProjects } = useQueryProject();
-  const { detailProject, refetch } = useQueryProjectDetail();
+  const { detailProject } = useQueryProjectDetail();
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -62,9 +62,7 @@ export default function BugInputForm() {
 
     const payload = {
       ...dialog.data,
-      projectId: detailProject
-        ? detailProject?.id
-        : Number(dialog.data?.projectId),
+      projectId: detailProject ? detailProject?.id : dialog.data?.projectId,
       severity: Number(dialog.data?.severity),
       waktu_perbaikan: Number(dialog.data?.waktu_perbaikan),
       risiko_perbaikan: Number(dialog.data?.risiko_perbaikan),
@@ -84,7 +82,6 @@ export default function BugInputForm() {
         body: payload,
       });
     }
-    refetch();
     setDialog((prev) => ({
       ...prev,
       data: null,
