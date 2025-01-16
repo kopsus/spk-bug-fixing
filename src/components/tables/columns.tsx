@@ -32,23 +32,38 @@ export const Columns = ({
     header: "Priority",
     cell: ({ row }: { row: { getValue: <T>(key: string) => T } }) => {
       const priority = row.getValue<number>("skor");
-      return priority < 30 ? (
-        <span className="inline-block bg-slate-200 dark:text-black px-2 py-1 rounded">
-          Low
-        </span>
-      ) : priority >= 30 && priority < 60 ? (
-        <span className="inline-block bg-amber-200 dark:text-black px-2 py-1 rounded">
-          Medium
-        </span>
-      ) : priority >= 60 && priority < 80 ? (
-        <span className="inline-block bg-orange-400 text-white px-2 py-1 rounded">
-          High
-        </span>
-      ) : (
-        <span className="inline-block bg-red-500 text-white px-2 py-1 rounded">
-          Urgent
-        </span>
-      );
+
+      if (priority < 40) {
+        return (
+          <span className="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded">
+            Very Low
+          </span>
+        );
+      } else if (priority >= 40 && priority < 55) {
+        return (
+          <span className="inline-block bg-green-200 text-green-800 px-2 py-1 rounded">
+            Low
+          </span>
+        );
+      } else if (priority >= 55 && priority < 70) {
+        return (
+          <span className="inline-block bg-yellow-300 text-yellow-900 px-2 py-1 rounded">
+            Medium
+          </span>
+        );
+      } else if (priority >= 70 && priority < 85) {
+        return (
+          <span className="inline-block bg-orange-500 text-white px-2 py-1 rounded">
+            High
+          </span>
+        );
+      } else {
+        return (
+          <span className="inline-block bg-red-700 text-white px-2 py-1 rounded">
+            Urgent
+          </span>
+        );
+      }
     },
   },
   ...(showAction

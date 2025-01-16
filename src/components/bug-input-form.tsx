@@ -30,7 +30,7 @@ import { Loader } from "lucide-react";
 export default function BugInputForm() {
   const [dialog, setDialog] = useAtom(storeDialog);
   const { dataProjects } = useQueryProject();
-  const { detailProject } = useQueryProjectDetail();
+  const { detailProject, refetch } = useQueryProjectDetail();
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -81,6 +81,9 @@ export default function BugInputForm() {
         type: "create",
         body: payload,
       });
+    }
+    if (detailProject) {
+      refetch();
     }
     setDialog((prev) => ({
       ...prev,
