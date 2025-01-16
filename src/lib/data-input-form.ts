@@ -47,11 +47,11 @@ const time = [
 const risk = [
   {
     title: "Sangat rendah",
-    value: 100,
+    value: 20,
   },
   {
     title: "Rendah",
-    value: 80,
+    value: 40,
   },
   {
     title: "Sedang",
@@ -59,11 +59,11 @@ const risk = [
   },
   {
     title: "Tinggi",
-    value: 40,
+    value: 80,
   },
   {
     title: "Sangat tinggi",
-    value: 20,
+    value: 100,
   },
 ];
 
