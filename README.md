@@ -1,10 +1,10 @@
 ```bash
-npm run install
+npm install
 ```
 
 ```bash
 create file .env
-DATABASE_URL=DATABASE_URL="mysql://user:password@localhost:3306/mydb"
+DATABASE_URL=DATABASE_URL="mysql://user_db:password_db@localhost:3306/db_name"
 JWT_SECRET=rahasia
 NEXT_PUBLIC_API_URL=/api
 ```
