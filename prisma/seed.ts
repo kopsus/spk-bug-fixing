@@ -54,7 +54,7 @@ async function main() {
         skor: 7,
         status: EnumStatus.Process,
         projectId: proeject[0].id,
-        id: "1",
+        id: 1,
       },
       {
         title: "Bug 2 - UI Layout Break",
@@ -67,7 +67,7 @@ async function main() {
         skor: 5,
         status: EnumStatus.Process,
         projectId: proeject[1].id,
-        id: "2",
+        id: 2,
       },
       {
         title: "Bug 3 - API Timeout Error",
@@ -80,7 +80,7 @@ async function main() {
         skor: 8,
         status: EnumStatus.Fixed,
         projectId: proeject[2].id,
-        id: "3",
+        id: 3,
       },
       {
         title: "Bug 4 - Payment Gateway Not Working",
@@ -93,7 +93,7 @@ async function main() {
         skor: 9,
         status: EnumStatus.Process,
         projectId: proeject[3].id,
-        id: "4",
+        id: 4,
       },
       {
         title: "Bug 5 - Image Upload Error",
@@ -106,7 +106,7 @@ async function main() {
         skor: 6,
         status: EnumStatus.Fixed,
         projectId: proeject[0].id,
-        id: "5",
+        id: 5,
       },
     ].map((bug) => prisma.bug.create({ data: bug }))
   );
