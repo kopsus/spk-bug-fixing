@@ -1,4 +1,3 @@
-import { TypeBug } from "@/api/bug/types";
 import { atom } from "jotai";
 
 type IDialog<T> = {

@@ -92,181 +92,198 @@ export default function BugInputForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <h2 className="text-4xl font-bold">
-        {dialog.type === "UPDATE" ? "Update" : "Add"} bug
-      </h2>
-      <div className="grid gap-2">
-        <Label>Title</Label>
-        <Input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={dialog.data?.title ?? ""}
-          onChange={onInputChange}
-          required
-        />
+    <div className="flex flex-col gap-5">
+      <div className="flex items-center justify-between">
+        <h2 className="text-4xl font-bold">
+          {dialog.type === "UPDATE" ? "Update" : "Add"} bug
+        </h2>
+        {dialog.type === "UPDATE" && (
+          <Button
+            onClick={() =>
+              setDialog((prev) => ({
+                ...prev,
+                type: "CREATE",
+                data: null,
+              }))
+            }
+          >
+            Create Bug
+          </Button>
+        )}
       </div>
-      {!detailProject ? (
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div className="grid gap-2">
-          <Label>Project</Label>
+          <Label>Title</Label>
+          <Input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={dialog.data?.title ?? ""}
+            onChange={onInputChange}
+            required
+          />
+        </div>
+        {!detailProject ? (
+          <div className="grid gap-2">
+            <Label>Project</Label>
+            <Select
+              required
+              onValueChange={(value) => onValueChange(value, "projectId")}
+              value={dialog.data?.projectId ?? ""}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Pilih..." />
+              </SelectTrigger>
+              <SelectContent>
+                {dataProjects?.map((option) => (
+                  <SelectItem key={option.id} value={option.id}>
+                    {option.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : null}
+        <div className="grid gap-2">
+          <Label>Tingkat keparahan</Label>
           <Select
             required
-            onValueChange={(value) => onValueChange(value, "projectId")}
-            value={dialog.data?.projectId ?? ""}
+            onValueChange={(value) => onValueChange(value, "severity")}
+            value={dialog.data?.severity ?? ""}
           >
             <SelectTrigger>
               <SelectValue placeholder="Pilih..." />
             </SelectTrigger>
             <SelectContent>
-              {dataProjects?.map((option) => (
-                <SelectItem key={option.id} value={option.id}>
-                  {option.name}
+              {severity.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
-      ) : null}
-      <div className="grid gap-2">
-        <Label>Tingkat keparahan</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "severity")}
-          value={dialog.data?.severity ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {severity.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Waktu perbaikan</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "waktu_perbaikan")}
-          value={dialog.data?.waktu_perbaikan ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {time.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Resiko perbaikan</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "risiko_perbaikan")}
-          value={dialog.data?.risiko_perbaikan ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {risk.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Prioritas stakeholder</Label>
-        <Select
-          required
-          onValueChange={(value) =>
-            onValueChange(value, "prioritas_stakeholder")
-          }
-          value={dialog.data?.prioritas_stakeholder ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {stakeholder.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Usia bug</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "usia_bug")}
-          value={dialog.data?.usia_bug ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {ageBug.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Ketersediaan SDM</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "ketersediaan_sdm")}
-          value={dialog.data?.ketersediaan_sdm ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {sdm.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid gap-2">
-        <Label>Status</Label>
-        <Select
-          required
-          onValueChange={(value) => onValueChange(value, "status")}
-          value={dialog.data?.status ?? ""}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih..." />
-          </SelectTrigger>
-          <SelectContent>
-            {status.map((option) => (
-              <SelectItem key={option.title} value={option.value.toString()}>
-                {option.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+        <div className="grid gap-2">
+          <Label>Waktu perbaikan</Label>
+          <Select
+            required
+            onValueChange={(value) => onValueChange(value, "waktu_perbaikan")}
+            value={dialog.data?.waktu_perbaikan ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {time.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label>Resiko perbaikan</Label>
+          <Select
+            required
+            onValueChange={(value) => onValueChange(value, "risiko_perbaikan")}
+            value={dialog.data?.risiko_perbaikan ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {risk.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label>Prioritas stakeholder</Label>
+          <Select
+            required
+            onValueChange={(value) =>
+              onValueChange(value, "prioritas_stakeholder")
+            }
+            value={dialog.data?.prioritas_stakeholder ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {stakeholder.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label>Usia bug</Label>
+          <Select
+            required
+            onValueChange={(value) => onValueChange(value, "usia_bug")}
+            value={dialog.data?.usia_bug ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {ageBug.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label>Ketersediaan SDM</Label>
+          <Select
+            required
+            onValueChange={(value) => onValueChange(value, "ketersediaan_sdm")}
+            value={dialog.data?.ketersediaan_sdm ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {sdm.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="grid gap-2">
+          <Label>Status</Label>
+          <Select
+            required
+            onValueChange={(value) => onValueChange(value, "status")}
+            value={dialog.data?.status ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih..." />
+            </SelectTrigger>
+            <SelectContent>
+              {status.map((option) => (
+                <SelectItem key={option.title} value={option.value.toString()}>
+                  {option.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <Button type="submit" disabled={isPending}>
-        {isPending ? <Loader /> : dialog.type === "UPDATE" ? "Update" : "Add"}
-      </Button>
-    </form>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? <Loader /> : dialog.type === "UPDATE" ? "Update" : "Add"}
+        </Button>
+      </form>
+    </div>
   );
 }
