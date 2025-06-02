@@ -29,6 +29,8 @@ export async function POST(req: Request) {
 
     (await cookies()).set("accessToken", token, {
       path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Secure hanya di produksi
     });
 
     return ResponseHandler.get(payload, "Berhasil Login");

@@ -13,7 +13,7 @@ export const Columns = ({
     accessorKey: "id",
     header: () => <p className="text-nowrap">BUG ID</p>,
     cell: ({ row }) => {
-      return <p className="text-nowrap">{row.getValue("id")}</p>;
+      return <p className="text-nowrap">BUG-{row.getValue("id")}</p>;
     },
   },
   {

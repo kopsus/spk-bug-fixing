@@ -32,7 +32,7 @@ enum EnumStatus {
 }
 
 model Bug {
-  id                    String     @id @default(cuid()) 
+  id                    Int    @id @unique 
   title                 String
   severity              Int
   waktu_perbaikan       Int

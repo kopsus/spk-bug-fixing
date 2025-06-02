@@ -39,11 +39,13 @@ export function LoginForm() {
     e.preventDefault();
 
     try {
-      await serviceAuth({
+      const res = await serviceAuth({
         type: "login",
         body: payload,
       });
-      router.push("/dashboard");
+      if (res) {
+        router.push("/dashboard");
+      }
     } catch (err) {
       // Error sudah ditangani di hook
     }
